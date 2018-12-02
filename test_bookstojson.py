@@ -1,11 +1,7 @@
 import unittest
-from bs4 import BeautifulSoup
 import os
 import tempfile
 import shutil
-import os
-import json
-from bookstojson import BooksToJson
  
 class TestBookJson(unittest.TestCase):
     
@@ -113,11 +109,15 @@ class TestBookJson(unittest.TestCase):
                 file2.write(html_text2)
             # create object while temp dir and files 
             # are available
-            test_obj = BooksToJson(temp_dir)
+            temp_json_file = 'test_json_file.json'
+            test_obj = BooksToJson(temp_dir, temp_json_file)
             
             # load up json file before it is removed
             with open(test_obj.json_file_name) as j_file:
                 self.json_data = json.load(j_file)
+            
+            # remove test json file
+            os.remove(temp_json_file)
             
         except IOError as e:
             print ('IOError')
@@ -173,6 +173,3 @@ class TestBookJson(unittest.TestCase):
             '</li>'.format(title, author, price, weight, isbn)
              )
         return book_html
-
-if __name__ == '__main__':
-    unittest.main()
