@@ -180,6 +180,7 @@ class BooksToJson(object):
         for box in bookList.boxes:
             box_dict = self.__get_box(box, box_id)
             boxed_books.append(box_dict)
+            box_id+=1
         return boxed_books
     
     def __get_box(self, box, box_id):
